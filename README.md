@@ -1,8 +1,12 @@
 # kunin
 Parser tools and library for PHP 😅😅😅
 
+## ToDo
+- [] Parse everything in the head (OpenGraph, Twitter & other meta-tags)
+- [] Detect site main content
+
 ## What's with This?
-Currently there is no straightforward solution to actually parse webpages ala-Facebook. Various functions and crazy libraries can be cumbersome for many. Project kunin may be unnecessary aims to be that one-solution for all. A library that is one call away.
+Currently there is no straightforward solution to actually parse webpages ala-Facebook. Various functions and crazy libraries can be cumbersome for many. Project kunin may be unnecessary but it aims to be that one-solution for all. A library that is one call away.
 
 ## Now what?
 Doing this is not an easy task. One solution can be better and more efficient than others. As needed, this would be improved in the future. It may be an internal tool for now, it may at lease serve some purpose for others.
