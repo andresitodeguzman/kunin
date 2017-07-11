@@ -2,8 +2,8 @@
 Parser tools and library for PHP 😅😅😅
 
 ## ToDo
-- [] Parse everything in the head (OpenGraph, Twitter & other meta-tags)
-- [] Detect site main content
+- [ ] Parse everything in the head (OpenGraph, Twitter & other meta-tags)
+- [ ] Detect site main content
 
 ## What's with This?
 Currently there is no straightforward solution to actually parse webpages ala-Facebook. Various functions and crazy libraries can be cumbersome for many. Project kunin may be unnecessary but it aims to be that one-solution for all. A library that is one call away.
