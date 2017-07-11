@@ -6,12 +6,15 @@ Parser tools and library for php
 @Author: Andresito M. de Guzman
 @License: MIT
 @Copyright: 2017. Andresito de Guzman
+@Repository: https://github.com/andresitodeguzman/kunin
 */
 
 class kunin {
 
     private $url;
+    private $value;
     private $raw_site_data;
+    private $raw_meta_data;
     public $title;
     public $description;
 
@@ -27,7 +30,8 @@ class kunin {
         // Checks for empty url
         if(!@$this->url) echo "Empty url";
         // Gets the contents in url
-        $this->raw_site_data = file_get_contents($this->url);
+        $this->raw_site_data = file_get_contents($this->url);        
+        $this->raw_meta_data = get_meta_tags($this->url);
         // Checks for empty data
         if(!@$this->raw_site_data) echo "Error getting url data";
     }
@@ -39,8 +43,12 @@ class kunin {
     return: String
     */
     public function getRawData(){
-        // Returns Raw Data
-        return $this->raw_site_data;
+        if(!$this->raw_site_data){
+            return '';
+        } else {
+            // Returns Raw Data
+            return $this->raw_site_data;           
+        }
     }
 
     /*
@@ -55,15 +63,49 @@ class kunin {
             // Searches for site title using regular expression
             preg_match("/<title>(.*)<\/title>/i", $this->raw_site_data, $matches);
             // Handles Title
-            $this->title= $matches[1];
+            $this->title = $matches[1];
             // Returns Title
-            return $this->title;
+            if(!$this->title){
+                return '';
+            } else {
+                return $this->title;               
+            }
+        } 
+    }
+
+    /*
+    getTags
+    Returs an array of Meta Tags
+    param: none
+    return: Array
+    */
+    public function getTags(){
+        if(isset($this->raw_meta_data)){
+            // Returns Raw Meta Data (Array)
+            return $this->raw_meta_data;
+        } else {
+            return array();
         }
     }
 
-}
+    /*
+    value
+    Returns value of a meta tag
+    param: String $key - name of meta tag
+    return: String
+    */
+    public function value($key){
+        if(isset($this->raw_meta_data)){
+           $val = $this->raw_meta_data[$key];
+           if(!$val){
+               return '';
+           } else {
+               return $val;
+           }
+        }
+    }
 
-$a = new kunin("https://github.com/andresitodeguzman");
-$b = $a->getTitle();
-echo($b);
+
+
+}
 ?>

@@ -5,8 +5,8 @@ Parser tools and library for PHP 😅😅😅
 - [ ] Parse everything in the head (OpenGraph, Twitter & other meta-tags)
 - [ ] Detect site main content
 
-## What's with This?
-Currently there is no straightforward solution to actually parse webpages ala-Facebook. Various functions and crazy libraries can be cumbersome for many. Project kunin may be unnecessary but it aims to be that one-solution for all. A library that is one call away, no need to frustrate your self with setting up long functions. Write cleaner codes! Yay! 😍😍😍😚😚😚♥♥♥ 
+## What is This?
+Currently there is no straightforward solution to actually parse webpages ala-Facebook. Various functions and crazy libraries can be cumbersome for many. Project kunin may be unnecessary but it aims to be that one-solution for all. Kunin is a library that is one call away, no need to frustrate your self with setting up long functions. Write cleaner codes! Yay! 😍😍😍😚😚😚♥♥♥ 
 
 ## Basic Usage
 Import the library
@@ -43,9 +43,9 @@ echo "Site 2 Title: " . $objTwo->getTitle(); // Prints the title for urlTwo
 ```
 
 ## Important Reminder
-You really need a fast connection to immediately process all of the urls quickly. It is recommended that you use ajax to provide a seamless way to parse urls without making them wait for the whole proccess to finish. Also, use a caching mechanism to prevent excess load in your system and make the process faster. Check on the cache first, then have this as a fallback when it is not yet cached or it expired.
+You really need a fast connection to immediately process all of the urls quickly. It is recommended that you use ajax to provide a seamless way to parse urls without making them wait for the whole proccess to finish. Also, use a caching mechanism to prevent excess load in your system and make the process faster. Check on the cache first, then have this as a fallback when it is not yet cached or it has already expired.
 
-Sites that uses https require that your openssl extension to be turned on. You may do so by enabling it on your ```php.ini```. This is important as majority of the web is now transitioning towards https.
+Sites that uses https require that your openssl extension to be turned on. You may do so by enabling it in your ```php.ini```. This is important as majority of the web is now transitioning towards https.
 
 ## Now what?
 Doing this is not an easy task. One solution can be better and more efficient than others. As needed, this would be improved in the future. It may be an internal tool for now, it may at lease serve some purpose for others.
