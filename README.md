@@ -6,25 +6,40 @@ Parser tools and library for PHP 😅😅😅
 - [ ] Detect site main content
 
 ## What's with This?
-Currently there is no straightforward solution to actually parse webpages ala-Facebook. Various functions and crazy libraries can be cumbersome for many. Project kunin may be unnecessary but it aims to be that one-solution for all. A library that is one call away.
+Currently there is no straightforward solution to actually parse webpages ala-Facebook. Various functions and crazy libraries can be cumbersome for many. Project kunin may be unnecessary but it aims to be that one-solution for all. A library that is one call away, no need to frustrate your self with setting up long functions. Write cleaner codes! Yay! 😍😍😍😚😚😚♥♥♥ 
 
 ## Basic Usage
 Import the library
 ```php
-    require("dist/kunin.php");
+require("dist/kunin.php");
 ```
 Create an object for each url to be processed
 ```php
-    // Set the url
-    $url = "https://github.com/andresitodeguzman/kunin";
-    // Create an object
-    $obj = new kunin($url);
+// Declare url
+$url = "https://github.com/andresitodeguzman/kunin";
+// Create an object
+$obj = new kunin($url);
 ```
 Use the library
 ```php
-    // Example function
-    $title = $obj->getTitle();
-    echo $title; //Prints the title of the page    
+// Example function
+$title = $obj->getTitle();
+echo $title; //Prints the title of the page    
+```
+
+Use multiple urls
+```php
+// Declare all urls
+$urlOne = "https://github.com/andresitodeguzman/kunin";
+$urlTwo = "https://github.com/andresitodeguzman/smspy";
+
+// Create object for each url
+$objOne = new kunin($urlOne);
+$objTwo = new kunin($urlTwo);
+
+// Use them accordingly
+echo "Site 1 Title: " . $objOne->getTitle(); // Prints the title for urlOne
+echo "Site 2 Title: " . $objTwo->getTitle(); // Prints the title for urlTwo
 ```
 
 ## Important Reminder
