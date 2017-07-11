@@ -2,14 +2,18 @@
 /*
 Kunin
 Parser tools and library for php
+
+@Author: Andresito M. de Guzman
+@License: MIT
+@Copyright: 2017. Andresito de Guzman
 */
 
 class kunin {
 
     private $url;
     private $raw_site_data;
-    public $site_title;
-    public $site_description;
+    public $title;
+    public $description;
 
     /* 
     Constructor
@@ -25,7 +29,7 @@ class kunin {
         // Gets the contents in url
         $this->raw_site_data = file_get_contents($this->url);
         // Checks for empty data
-        if(!@$this->raw_site_data)  echo "Error getting url data";
+        if(!@$this->raw_site_data) echo "Error getting url data";
     }
 
     /*
@@ -39,11 +43,27 @@ class kunin {
         return $this->raw_site_data;
     }
 
+    /*
+    getTitle
+    Returns the title detected (Dynamic Title will not be parsed)
+    param: none
+    return: String
+    */
+    public function getTitle(){
+        // Checks if $raw_site_data is contains data
+        if(isset($this->raw_site_data)){
+            // Searches for site title using regular expression
+            preg_match("/<title>(.*)<\/title>/i", $this->raw_site_data, $matches);
+            // Handles Title
+            $this->title= $matches[1];
+            // Returns Title
+            return $this->title;
+        }
+    }
 
 }
 
-$a = new kunin("http://andresitodeguzman.com");
-$b = $a->geturl();
+$a = new kunin("https://github.com/andresitodeguzman");
+$b = $a->getTitle();
 echo($b);
-
 ?>
