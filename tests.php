@@ -4,7 +4,7 @@ Tests
 Ensures that everything works
 */
 
-require_once __DIR__."\dist\kunin.php";
+require_once __DIR__."/dist/kunin.php";
 
 use PHPUnit\Framework\TestCase;
 
