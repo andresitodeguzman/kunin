@@ -12,7 +12,6 @@ Parser tools and library for php
 class kunin {
 
     private $url;
-    private $value;
     private $raw_site_data;
     private $raw_meta_data;
     private $raw_og_data;
@@ -34,7 +33,7 @@ class kunin {
         $this->raw_meta_data = get_meta_tags($this->url);
         // Checks for empty data
         if(!@$this->raw_site_data){ echo "Error getting url data "; } else {
-            preg_match_all('~<\s*meta\s+property="(og:[^"]+)"\s+content="([^"]*)~i', $this->raw_site_data, $matches);
+            preg_match_all('~<\s*meta\s+property="(og:[^"])"\s+content="([^"]*)~i', $this->raw_site_data, $matches);
             if(!@$matches){
                 $this->raw_og_data = "";
             } else {
