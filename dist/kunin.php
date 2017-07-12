@@ -15,8 +15,8 @@ class kunin {
     private $value;
     private $raw_site_data;
     private $raw_meta_data;
+    private $raw_og_data;
     public $title;
-    public $description;
 
     /* 
     Constructor
@@ -30,10 +30,17 @@ class kunin {
         // Checks for empty url
         if(!@$this->url) echo "Empty url";
         // Gets the contents in url
-        $this->raw_site_data = file_get_contents($this->url);        
+        $this->raw_site_data = file_get_contents($this->url);
         $this->raw_meta_data = get_meta_tags($this->url);
         // Checks for empty data
-        if(!@$this->raw_site_data) echo "Error getting url data";
+        if(!@$this->raw_site_data){ echo "Error getting url data "; } else {
+            preg_match_all('~<\s*meta\s+property="(og:[^"]+)"\s+content="([^"]*)~i', $this->raw_site_data, $matches);
+            if(!@$matches){
+                $this->raw_og_data = "";
+            } else {
+                $this->raw_og_data = $matches;
+            }
+        }
     }
 
     /*
@@ -89,6 +96,39 @@ class kunin {
     }
 
     /*
+    getImages
+    Returns an array of parsed Image Urls
+    param: none
+    return: Array
+    */
+    public function getImages(){
+        if(isset($this->raw_site_data)){
+            preg_match_all('/<img[^>]+>/i', $this->raw_site_data, $matches);
+            if(!$matches){
+                return array();
+            } else {
+                return $matches[0];
+            }
+        } else {
+            return array();
+        }
+    }
+
+    /*
+    getOgTags
+    Returns an array of OpenGraph Tags
+    param: none
+    return: Array
+    */
+    public function getOgTags(){
+        if(isset($this->raw_og_data)){
+            return $this->raw_og_data;
+        } else {
+            return array();
+        }
+    }
+
+    /*
     value
     Returns value of a meta tag
     param: String $key - name of meta tag
@@ -105,7 +145,24 @@ class kunin {
         }
     }
 
-
+    /*
+    openValue
+    Returns value of an open graph tag
+    param: String $key - name of open graph tag
+    return: String
+    */
+    public function openValue($key){
+        if(!$this->raw_og_data){
+            return '';
+         } else {
+             $val = $raw_og_data[$key];
+             if(!$val){
+                return '';
+             } else {
+                return $val;
+             }
+         }
+    }
 
 }
 ?>
