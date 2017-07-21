@@ -102,7 +102,8 @@ class kunin {
     */
     public function getImages(){
         if(isset($this->raw_site_data)){
-            preg_match_all('/<img[^>]+>/i', $this->raw_site_data, $matches);
+            
+            preg_match('%<img.*?src=["\'](.*?)["\'].*?/>%i', $this->raw_site_data, $matches);
             if(!$matches){
                 return array();
             } else {
