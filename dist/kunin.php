@@ -1,21 +1,10 @@
 <?php
-/*
-Kunin
-Parser tools and library for php
-
-@Author: Andresito M. de Guzman
-@License: MIT
-@Copyright: 2017. Andresito de Guzman
-@Repository: https://github.com/andresitodeguzman/kunin
-*/
-
-class kunin {
+class kunin{
 
     private $url;
-    private $raw_site_data;
-    private $raw_meta_data;
-    private $raw_og_data;
-    public $title;
+    public $site;
+    public $site_title;
+    public $site_meta_tags;
 
     /* 
     Constructor
@@ -26,34 +15,31 @@ class kunin {
     function __construct($url){
         // Handles Parameter
         $this->url = $url;
-        // Checks for empty url
-        if(!@$this->url) echo "Empty url";
-        // Gets the contents in url
-        $this->raw_site_data = file_get_contents($this->url);
-        $this->raw_meta_data = get_meta_tags($this->url);
-        // Checks for empty data
-        if(!@$this->raw_site_data){ echo "Error getting url data "; } else {
-            preg_match_all('~<\s*meta\s+property="(og:[^"])"\s+content="([^"]*)~i', $this->raw_site_data, $matches);
-            if(!@$matches){
-                $this->raw_og_data = "";
-            } else {
-                $this->raw_og_data = $matches;
-            }
+        // Checks if Url is empty
+        if(!$this->url) echo "Empty Url";
+        // Creates DomDocument Object
+        $this->site = new DomDocument('1.0', 'UTF-8');
+        // Silence too much errors
+        libxml_use_internal_errors(true);
+        // Try Loading Site
+        try {            
+            $this->site->loadHTMLFile($this->url);            
+        } catch(Exception $e){
+            echo 'Caught Exception: '.$e->getMessage().'\n';
         }
+        $this->extractMetaTags();
     }
 
     /*
-    getRawData
-    Returns the raw data that was retreived from the url
-    param: none
-    return: String
+    extract Meta Tags
     */
-    public function getRawData(){
-        if(!$this->raw_site_data){
-            return '';
-        } else {
-            // Returns Raw Data
-            return $this->raw_site_data;           
+    function extractMetaTags(){
+        $this->site_meta_tags = array();
+        foreach($this->site->getElementsByTagName("meta") as $meta_tag){
+            $name = $meta_tag->getAttribute('name');
+            $content = $meta_tag->getAttribute('content');
+            $array = array("name"=>$name, "content"=>$content);
+            array_push($this->site_meta_tags, $array);
         }
     }
 
@@ -64,34 +50,26 @@ class kunin {
     return: String
     */
     public function getTitle(){
-        // Checks if $raw_site_data is contains data
-        if(isset($this->raw_site_data)){
-            // Searches for site title using regular expression
-            preg_match("/<title>(.*)<\/title>/i", $this->raw_site_data, $matches);
-            // Handles Title
-            $this->title = $matches[1];
-            // Returns Title
-            if(!$this->title){
-                return '';
-            } else {
-                return $this->title;               
-            }
-        } 
+        $nodes = $this->site->getElementsByTagName("title");
+        $this->site_title = $nodes->item(0)->nodeValue;
+        return $this->site_title;
     }
 
     /*
-    getTags
-    Returs an array of Meta Tags
+    getLinks
+    Return Links and their texts
     param: none
-    return: Array
+    return: Array(Array(String url, String text))
     */
-    public function getTags(){
-        if(isset($this->raw_meta_data)){
-            // Returns Raw Meta Data (Array)
-            return $this->raw_meta_data;
-        } else {
-            return array();
+    public function getLinks(){
+        // Creates empty array
+        $links = array();
+        // Extracts urls
+        foreach($this->site->getElementsByTagName('a') as $link){
+            $links[] = array("url"=>$link->getAttribute('href'),"text"=>$link->nodeValue);
         }
+        // Return links
+        return $links;
     }
 
     /*
@@ -101,31 +79,12 @@ class kunin {
     return: Array
     */
     public function getImages(){
-        if(isset($this->raw_site_data)){
-            
-            preg_match('%<img.*?src=["\'](.*?)["\'].*?/>%i', $this->raw_site_data, $matches);
-            if(!$matches){
-                return array();
-            } else {
-                return $matches[0];
-            }
-        } else {
-            return array();
+        // Creates empty array
+        $images = array();
+        foreach($this->site->getElementsByTagName('img') as $image){
+            array_push($images, $image->getAttribute('src'));
         }
-    }
-
-    /*
-    getOgTags
-    Returns an array of OpenGraph Tags
-    param: none
-    return: Array
-    */
-    public function getOgTags(){
-        if(isset($this->raw_og_data)){
-            return $this->raw_og_data;
-        } else {
-            return array();
-        }
+        return $images;
     }
 
     /*
@@ -135,34 +94,14 @@ class kunin {
     return: String
     */
     public function value($key){
-        if(isset($this->raw_meta_data)){
-           $val = $this->raw_meta_data[$key];
-           if(!$val){
-               return '';
-           } else {
-               return $val;
-           }
+        if(!$key) return '';
+        foreach($this->site_meta_tags as $meta_tag){
+            if($meta_tag['name']==$key){
+                return $meta_tag['content'];
+            }
         }
     }
 
-    /*
-    openValue
-    Returns value of an open graph tag
-    param: String $key - name of open graph tag
-    return: String
-    */
-    public function openValue($key){
-        if(!$this->raw_og_data){
-            return '';
-         } else {
-             $val = $raw_og_data[$key];
-             if(!$val){
-                return '';
-             } else {
-                return $val;
-             }
-         }
-    }
 
 }
 ?>

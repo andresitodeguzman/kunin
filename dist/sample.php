@@ -10,6 +10,7 @@ if(!@$_POST['url']){
     $themeColor = $obj->value("theme-color");
     $image = $obj->getImages();
     $img = $image[0];
+    $img = "<img src='$img' class='responsive-img'>";
 }
 ?>
 <html>
@@ -63,7 +64,6 @@ if(!@$_POST['url']){
                     </div>
                 </div>
                 ";
-                print_r($image);
             }
         ?>
         </div>
