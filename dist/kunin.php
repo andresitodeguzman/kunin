@@ -101,8 +101,10 @@ class kunin{
         // Creates empty array
         $images = array();
         foreach($this->site->getElementsByTagName('img') as $image){
+            // Pushes Image into array
             array_push($images, $image->getAttribute('src'));
         }
+        // Returns Images Array
         return $images;
     }
 
@@ -113,18 +115,56 @@ class kunin{
     return: String
     */
     public function value($key){
+        // Checks if empty parameter
         if(!$key) return '';
         foreach($this->site_meta_tags as $meta_tag){
+            // Check if key matches tag
             if($meta_tag['name']===$key){
                 return $meta_tag['content'];
             }
+            // Check if key matches property
             if($meta_tag['property']===$key){
                 return $meta_tag['content'];
             }
         }
     }
 
+    /*
+    paragraphs
+    Returns Paragraph
+    param: none
+    return Array
+    */
+    public function paragraphs(){
+        // Create empty array
+        $paragraphs = array();
+        foreach($this->site->getElementsByTagName('p') as $paragraph){
+            // Pushes Paragraph to Array
+            array_push($paragraphs, $paragraph->nodeValue);
+        }
+        // Returns Array
+        return $paragraphs;
+    }
+
+    /*
+    OpenGraph
+    Easily Access OpenGraph Tags 
+    param: none
+    return: Array
+    */
+    public function openGraph(){
+        $array = array();
+        $og_tags = array(
+        'title','type','image','url','audio','description', 'determiner',
+        'locale','locale_alternative','site_name','video','image:url',
+        'image:secure_url','image:type','image:width','image:height',
+        'video:secure_url','video:type','video:width','video:height',
+        'audio:secure_url','audio:type');
+        foreach($og_tags as $tag){
+            $array[$tag] = $this->value("og:".$tag);
+        }
+        return $array;
+    }
 
 }
-
 ?>
