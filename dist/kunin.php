@@ -1,4 +1,15 @@
 <?php
+/*
+Kunin
+Parser tools and library for php
+
+@Author: Andresito M. de Guzman
+@License: MIT
+@Copyright: 2017. Andresito de Guzman
+@Repository: https://github.com/andresitodeguzman/kunin
+*/
+
+
 class kunin{
 
     private $url;
@@ -31,14 +42,22 @@ class kunin{
     }
 
     /*
-    extract Meta Tags
+    extractMetaTags
+    extract and prepares Meta Tags for later use
+    params: none
+    return: Void
     */
-    function extractMetaTags(){
+    private function extractMetaTags(){
         $this->site_meta_tags = array();
         foreach($this->site->getElementsByTagName("meta") as $meta_tag){
             $name = $meta_tag->getAttribute('name');
             $content = $meta_tag->getAttribute('content');
-            $array = array("name"=>$name, "content"=>$content);
+            if(!@$meta_tag->getAttribute('property')){
+                $property = "";
+            } else {
+                $property = $meta_tag->getAttribute('property');
+            }
+            $array = array("name"=>$name, "property"=>$property, "content"=>$content);
             array_push($this->site_meta_tags, $array);
         }
     }
@@ -96,7 +115,10 @@ class kunin{
     public function value($key){
         if(!$key) return '';
         foreach($this->site_meta_tags as $meta_tag){
-            if($meta_tag['name']==$key){
+            if($meta_tag['name']===$key){
+                return $meta_tag['content'];
+            }
+            if($meta_tag['property']===$key){
                 return $meta_tag['content'];
             }
         }
@@ -104,4 +126,5 @@ class kunin{
 
 
 }
+
 ?>
