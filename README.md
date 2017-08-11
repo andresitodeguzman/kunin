@@ -44,7 +44,7 @@ You really need a fast connection to immediately process all of the urls quickly
 Sites that uses https require that your openssl extension to be turned on. You may do so by enabling it in your ```php.ini```. This is important as majority of the web is now transitioning towards https.
 
 ## Now what?
-Doing this is not an easy task. One solution can be better and more efficient than others. As needed, this would be improved in the future. It may be an internal tool for now, it may at lease serve some purpose for others.
+Doing this is not an easy task. One solution can be better and more efficient than others. As needed, this would be improved in the future. It may be an internal tool for now, it may at lease serve some purpose for others. Check out https://github.com/andresitodeguzman/mahalaga.
 
 ## Docs?
 This project is really meant for internal projects that requires to extract details from a webpage. Documentations would be made available in the future. The source code is already filled with comments so you don't have to actually need docs. Searching through the whole source code can be a pain though.
