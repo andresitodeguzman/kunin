@@ -1,6 +1,8 @@
 # Kunin
 Parser tools and library for PHP 😅😅😅
 
+[![BCH compliance](https://bettercodehub.com/edge/badge/andresitodeguzman/kunin?branch=master)](https://bettercodehub.com/)
+
 ## What is This?
 Currently there is no straightforward solution to actually parse webpages ala-Facebook. Various functions and crazy libraries can be cumbersome for many. Project kunin may be unnecessary but it aims to be that one-solution for all. Kunin is a library that is one call away, no need to frustrate your self with setting up long functions. Write cleaner codes! Yay! 😍😍😍😚😚😚♥♥♥ 
 
