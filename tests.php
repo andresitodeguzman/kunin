@@ -16,8 +16,8 @@ use PHPUnit\Framework\TestCase;
 class test extends TestCase{
 
     public function testEquality(){
-        $checkText = "Andresito de Guzman";
-        $url = "http://andresitodeguzman.com";
+        $checkText = "Holy Child Montessori";
+        $url = "https://hcmontessori.000webhostapp.com";
         $obj = new kunin($url);
         $result = $obj->getTitle();
         $this->assertEquals($checkText, $result);
