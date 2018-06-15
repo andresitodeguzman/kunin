@@ -1,0 +1,7 @@
+build: false
+shallow-clone: false
+clone_folder: C:\andresitodeguzman\kunin
+platform: 'x86'
+test_script:
+  - cd dist
+  - phpunit tests.php
