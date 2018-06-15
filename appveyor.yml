@@ -1,5 +1,4 @@
 build: false
-shallow-clone: false
 clone_folder: C:\andresitodeguzman\kunin
 platform: 'x86'
 install:
